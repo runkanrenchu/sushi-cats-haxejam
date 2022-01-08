@@ -4,12 +4,14 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.text.FlxTypeText;
+import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import haxe.CallStack;
 
 class PlayState extends FlxState
 {
@@ -26,6 +28,7 @@ class PlayState extends FlxState
 	var rollPoint:FlxSprite;
 	var points:Float = 0;
 	var pText:FlxText;
+	var flag:Bool = true;
 
 	public static var roll:FlxSprite;
 
@@ -46,8 +49,19 @@ class PlayState extends FlxState
 
 		timer = new FlxTimer();
 
-		// roll.color = FlxColor.fromRGB(245, 227, 163, 255);
+		spawnCats();
 
+		FlxG.log.add(kitties.overlaps(rollPoint));
+	}
+
+	static function outputStack()
+	{
+		trace(CallStack.toString(CallStack.callStack()));
+	}
+
+	function spawnCats()
+	{
+		outputStack();
 		switch (FlxG.random.int(0, 3))
 		{
 			case 0:
@@ -69,11 +83,19 @@ class PlayState extends FlxState
 			case _:
 				trace("default :(");
 		}
+
 		kitties = new Cat(108, 363, curKit);
-		kitties.setGraphicSize(64 + 16);
+		if (kitties != null && !kitties.alive)
+			kitties.revive();
+
+		kitties.setGraphicSize(80);
+		kitties.setPosition(108, 363);
+
 		kitties.centerOrigin();
 		kitties.updateHitbox();
 		kitties.centerOffsets();
+
+		kitties.rolled = false;
 
 		roll = new FlxSprite(0, 0);
 		roll.loadGraphic(curRoll);
@@ -100,7 +122,7 @@ class PlayState extends FlxState
 				{
 					roll.angularVelocity = kitties.angularVelocity;
 					roll.angularDrag = 1400;
-					counter = 0.03;
+					counter = 0.08;
 
 					roll.height--;
 					roll.width--;
@@ -119,16 +141,19 @@ class PlayState extends FlxState
 
 	function doARoll()
 	{
-		if (kitties.overlaps(rollPoint))
+		if (kitties.overlaps(rollPoint) && flag)
 		{
+			flag = false;
 			kitties.rolled = true;
 			FlxTween.tween(kitties, {angle: kitties.angle + 20, y: 500}, 0.7, {
 				ease: FlxEase.bounceOut,
 				onComplete: function(_):Void
 				{
-					create();
-
-					// reset angle and stuff
+					kitties.kill();
+					blanket.kill();
+					roll.kill();
+					spawnCats();
+					flag = true;
 				}
 			});
 		}

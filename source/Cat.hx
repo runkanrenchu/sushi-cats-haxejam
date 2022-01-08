@@ -5,7 +5,8 @@ import flixel.FlxSprite;
 
 class Cat extends FlxSprite
 {
-	var type:String;
+	public var type:String;
+
 	var idleFr:Array<Int>;
 	var counter:Float = 0.06;
 	var finFr:Array<Int>;
