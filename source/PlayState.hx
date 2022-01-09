@@ -9,6 +9,7 @@ import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import haxe.CallStack;
@@ -34,8 +35,9 @@ class PlayState extends FlxState
 
 	override public function create()
 	{
-		pText = new FlxText(0, 0, 0, "", 16, true);
+		pText = new FlxText(106, 322, 0, "", 16, true);
 		pText.font = 'assets/data/fonts/statusplz-regular.ttf';
+		pText.antialiasing = false;
 
 		rollPoint = new FlxSprite(480, 380);
 		rollPoint.makeGraphic(16, 16, FlxColor.TRANSPARENT);
@@ -48,20 +50,25 @@ class PlayState extends FlxState
 		add(pText);
 
 		timer = new FlxTimer();
+		#if FLX_DEBUG
+		FlxG.watch.addMouse();
+		FlxG.watch.add(pText, "x");
+		FlxG.watch.add(pText, "y"); // pText.angle = -8;
+		FlxG.watch.add(pText, "angle");
+		var angButton = new FlxButton(0, 0, "1more", onClick);
+		add(angButton);
+		#end
 
 		spawnCats();
-
-		FlxG.log.add(kitties.overlaps(rollPoint));
 	}
 
-	static function outputStack()
+	function onClick()
 	{
-		trace(CallStack.toString(CallStack.callStack()));
+		pText.angle = pText.angle - 2;
 	}
 
 	function spawnCats()
 	{
-		outputStack();
 		switch (FlxG.random.int(0, 3))
 		{
 			case 0:
@@ -144,6 +151,7 @@ class PlayState extends FlxState
 		if (kitties.overlaps(rollPoint) && flag)
 		{
 			flag = false;
+			points = points + 25;
 			kitties.rolled = true;
 			FlxTween.tween(kitties, {angle: kitties.angle + 20, y: 500}, 0.7, {
 				ease: FlxEase.bounceOut,
