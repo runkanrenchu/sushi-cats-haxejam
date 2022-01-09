@@ -1,4 +1,6 @@
-# 08.01.21
+# 0.1.0
+
+### 08.01.21
 
 - Added a changelog LOL
 - Implemented a FUNCTIONAL respawn logic (thanks to @migmoog, godlike)
