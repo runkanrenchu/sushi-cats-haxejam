@@ -1,6 +1,9 @@
-# 0.1.0
+# 0.1.1
 
-### 08.01.21
+- Just some organisation stuff.
+- *Attempted* a UI remodel, doesn't always work out `¯\_(ツ)_/¯`
+
+# 0.1.0
 
 - Added a changelog LOL
 - Implemented a FUNCTIONAL respawn logic (thanks to @migmoog, godlike)
@@ -8,5 +11,6 @@
 - Added a rough points system.
 
 ### Soon:
-- Pause menu ;)
+- Pawse menu ;)
 - Probably music!
+- Some UI changes.

@@ -44,7 +44,7 @@ class PlayState extends FlxState
 		FlxG.camera.color = FlxColor.BLACK;
 		FlxG.camera.fade(FlxColor.TRANSPARENT, true);
 		super.create();
-		bg = new FlxSprite(0, 0, 'assets/images/stage preview.png');
+		bg = new FlxSprite(0, 0, 'assets/images/playstate/stage preview.png');
 		add(bg);
 		add(rollPoint);
 		add(pText);
@@ -73,20 +73,20 @@ class PlayState extends FlxState
 		{
 			case 0:
 				curKit = 'lilly';
-				curRoll = 'assets/images/lillyroll.png';
-				curBlanket = 'assets/images/lillyblank.png';
+				curRoll = 'assets/images/playstate/lillyroll.png';
+				curBlanket = 'assets/images/playstate/lillyblank.png';
 			case 1:
 				curKit = 'logo';
-				curRoll = 'assets/images/logoroll.png';
-				curBlanket = 'assets/images/logoblank.png';
+				curRoll = 'assets/images/playstate/logoroll.png';
+				curBlanket = 'assets/images/playstate/logoblank.png';
 			case 2:
 				curKit = 'luna';
-				curRoll = 'assets/images/lunaroll.png';
-				curBlanket = 'assets/images/lunablank.png';
+				curRoll = 'assets/images/playstate/lunaroll.png';
+				curBlanket = 'assets/images/playstate/lunablank.png';
 			case 3:
 				curKit = 'artsi';
-				curRoll = 'assets/images/artsiroll.png';
-				curBlanket = 'assets/images/artsiblank.png';
+				curRoll = 'assets/images/playstate/artsiroll.png';
+				curBlanket = 'assets/images/playstate/artsiblank.png';
 			case _:
 				trace("default :(");
 		}

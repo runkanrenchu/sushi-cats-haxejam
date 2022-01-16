@@ -23,7 +23,7 @@ class Cat extends FlxSprite
 		this.x = x;
 		this.y = y;
 		this.drag.x = 1400;
-		this.loadGraphic("assets/images/kit_she.png", true);
+		this.loadGraphic("assets/images/playstate/kit_she.png", true);
 
 		switch (this.type)
 		{

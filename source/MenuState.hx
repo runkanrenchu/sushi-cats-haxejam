@@ -1,8 +1,14 @@
 package;
 
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.display.FlxBackdrop;
+import flixel.addons.display.FlxSliceSprite;
+import flixel.addons.ui.FlxUI9SliceSprite;
+import flixel.addons.ui.FlxUIButton;
+import flixel.addons.ui.FlxUISpriteButton;
+import flixel.math.FlxRect;
 import flixel.system.FlxAssets;
 import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
@@ -14,7 +20,8 @@ class MenuState extends FlxState
 {
 	var titleText:FlxText;
 	var bd:FlxBackdrop;
-	var playButton:FlxButton;
+	var buttonG:FlxSliceSprite;
+	var playButton:FlxUIButton;
 	var arr:Array<String>;
 	var ttlObj:Array<Dynamic>;
 	var datxt:FlxText;
@@ -22,12 +29,13 @@ class MenuState extends FlxState
 	override public function create()
 	{
 		super.create();
-		bd = new FlxBackdrop('assets/images/bdrop.png', 1, 1);
+		// buttonG = new FlxSliceSprite('assets/images/ui/button.png', FlxRect.get(16, 16, 128 - 32, 128 - 32), 48, 128);
+		bd = new FlxBackdrop('assets/images/playstate/bdrop.png', 1, 1);
 		bd.velocity.set(40, 40);
 		FlxG.camera.bgColor = FlxColor.fromString("#d2cbf2");
 		titleText = new FlxText(198, 90, 0, "Sushi Cats!", 48, true);
 		titleText.font = 'assets/data/fonts/lowbatt.ttf';
-		playButton = new FlxButton(256, 260, "Play!", onClick);
+		playButton = new FlxUIButton(256, 260, "Play!", onClick);
 
 		datxt = new FlxText(148, 320, 0, "Made with love to the Haxe Community, \n by Renchu (@BSOD).", 14);
 		datxt.alignment = CENTER;
