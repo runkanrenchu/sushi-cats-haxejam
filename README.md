@@ -31,4 +31,4 @@ Requirements: Haxe 4, Lime haxelib, Flixel haxelib, OpenFL haxelib, Flixel-addon
 
 Download the source code (either in a .zip file or fork this repository), place it in the desired directory, and run `lime test html5` in that folder containing the whole source code.
 
-*If you wanna skip that process, though, the game is also up on [Itch.io](https://renchuaintreal.itch.io/haxe-jam-winter-edition).*
+*If you wanna skip that process, though, the game is also up on [Itch.io](https://renchuaintreal.itch.io/sushi-cats).*
