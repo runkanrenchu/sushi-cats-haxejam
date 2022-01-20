@@ -1,6 +1,7 @@
 # 0.1.2
 
 - Added animations in cat spawn. Makes it feel more complete x)
+- NOW ON [ITCH.IO!!!](https://renchuaintreal.itch.io/sushi-cats)
 
 # 0.1.1
 
