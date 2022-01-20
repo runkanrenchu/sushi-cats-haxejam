@@ -30,6 +30,7 @@ class PlayState extends FlxState
 	var points:Float = 0;
 	var pText:FlxText;
 	var flag:Bool = true;
+	var catcom:Array<FlxSprite>;
 
 	public static var roll:FlxSprite;
 
@@ -45,12 +46,11 @@ class PlayState extends FlxState
 		FlxG.camera.fade(FlxColor.TRANSPARENT, true);
 		super.create();
 		bg = new FlxSprite(0, 0, 'assets/images/playstate/stage preview.png');
+
 		add(bg);
 		add(rollPoint);
 		add(pText);
-
-		timer = new FlxTimer();
-		#if FLX_DEBUG
+		#if (FLX_DEBUG && show_devtools == "yes")
 		FlxG.watch.addMouse();
 		FlxG.watch.add(pText, "x");
 		FlxG.watch.add(pText, "y"); // pText.angle = -8;
@@ -58,7 +58,6 @@ class PlayState extends FlxState
 		var angButton = new FlxButton(0, 0, "1more", onClick);
 		add(angButton);
 		#end
-
 		spawnCats();
 	}
 
@@ -92,11 +91,11 @@ class PlayState extends FlxState
 		}
 
 		kitties = new Cat(108, 363, curKit);
-		if (kitties != null && !kitties.alive)
+		if (kitties != null && !kitties.exists && !kitties.alive)
 			kitties.revive();
 
 		kitties.setGraphicSize(80);
-		kitties.setPosition(108, 363);
+		kitties.setPosition(108, 338);
 
 		kitties.centerOrigin();
 		kitties.updateHitbox();
@@ -112,9 +111,14 @@ class PlayState extends FlxState
 		blanket = new FlxSprite(90, 398);
 		blanket.loadGraphic(curBlanket);
 
+		catcom = [roll, kitties];
+
 		add(blanket);
-		add(roll);
-		add(kitties);
+		for (i in catcom)
+		{
+			add(i);
+			FlxTween.tween(i, {y: i.y + 20}, 0.8, {ease: FlxEase.bounceOut});
+		}
 	}
 
 	function rollLogic(elapsed:Float)

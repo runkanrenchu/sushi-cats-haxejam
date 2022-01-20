@@ -1,3 +1,7 @@
+# 0.1.2
+
+- Added animations in cat spawn. Makes it feel more complete x)
+
 # 0.1.1
 
 - Just some organisation stuff.
