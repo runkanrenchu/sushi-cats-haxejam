@@ -11,5 +11,6 @@
 	},
 	"haxe.enableExtendedIndentation": true,
 	"editor.fontFamily": "Comic Mono, 'Courier New', monospace",
-	"terminal.integrated.fontFamily": "Consolas"
+	"terminal.integrated.fontFamily": "Consolas",
+	"liveServer.settings.multiRootWorkspaceName": "haxejammm"
 }

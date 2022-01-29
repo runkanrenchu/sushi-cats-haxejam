@@ -1,11 +1,13 @@
 package;
 
+import CatImproved.CatImp;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.text.FlxTypeText;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
+import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -17,7 +19,7 @@ import haxe.CallStack;
 class PlayState extends FlxState
 {
 	var counter:Float = 0.08;
-	var kitties:Cat;
+	var kitties:CatImp;
 	var blanket:FlxSprite;
 	var curKit:String;
 	var timer:FlxTimer;
@@ -27,36 +29,46 @@ class PlayState extends FlxState
 	var tutorial:FlxTypeText;
 	var tutFinish:Bool = false;
 	var rollPoint:FlxSprite;
+	var leftRollPoint:FlxSprite;
 	var points:Float = 0;
 	var pText:FlxText;
 	var flag:Bool = true;
+	var leftFlag:Bool = true;
 	var catcom:Array<FlxSprite>;
-
-	public static var roll:FlxSprite;
 
 	override public function create()
 	{
+		FlxG.mouse.visible = false;
+
 		pText = new FlxText(106, 322, 0, "", 16, true);
 		pText.font = 'assets/data/fonts/statusplz-regular.ttf';
 		pText.antialiasing = false;
 
 		rollPoint = new FlxSprite(480, 380);
 		rollPoint.makeGraphic(16, 16, FlxColor.TRANSPARENT);
+		leftRollPoint = new FlxSprite(25, 400);
+		leftRollPoint.makeGraphic(16, 16, FlxColor.TRANSPARENT);
 		FlxG.camera.color = FlxColor.BLACK;
-		FlxG.camera.fade(FlxColor.TRANSPARENT, true);
+		FlxG.camera.fade(FlxColor.TRANSPARENT, 1, true);
 		super.create();
 		bg = new FlxSprite(0, 0, 'assets/images/playstate/stage preview.png');
 
 		add(bg);
 		add(rollPoint);
+
 		add(pText);
-		#if (FLX_DEBUG && show_devtools == "yes")
-		FlxG.watch.addMouse();
-		FlxG.watch.add(pText, "x");
-		FlxG.watch.add(pText, "y"); // pText.angle = -8;
-		FlxG.watch.add(pText, "angle");
-		var angButton = new FlxButton(0, 0, "1more", onClick);
-		add(angButton);
+		#if (FLX_DEBUG)
+		{
+			#if (show_devtools == "yes")
+			FlxG.watch.addMouse();
+			FlxG.watch.add(pText, "x");
+			FlxG.watch.add(pText, "y"); // pText.angle = -8;
+			FlxG.watch.add(pText, "angle");
+			var angButton = new FlxButton(0, 0, "1more", onClick);
+			add(angButton);
+			#end
+			FlxG.mouse.visible = true;
+		}
 		#end
 		spawnCats();
 	}
@@ -72,103 +84,48 @@ class PlayState extends FlxState
 		{
 			case 0:
 				curKit = 'lilly';
-				curRoll = 'assets/images/playstate/lillyroll.png';
-				curBlanket = 'assets/images/playstate/lillyblank.png';
+
 			case 1:
 				curKit = 'logo';
-				curRoll = 'assets/images/playstate/logoroll.png';
-				curBlanket = 'assets/images/playstate/logoblank.png';
 			case 2:
 				curKit = 'luna';
-				curRoll = 'assets/images/playstate/lunaroll.png';
-				curBlanket = 'assets/images/playstate/lunablank.png';
 			case 3:
 				curKit = 'artsi';
-				curRoll = 'assets/images/playstate/artsiroll.png';
-				curBlanket = 'assets/images/playstate/artsiblank.png';
 			case _:
 				trace("default :(");
 		}
 
-		kitties = new Cat(108, 363, curKit);
+		kitties = new CatImp(108, 363, curKit);
 		if (kitties != null && !kitties.exists && !kitties.alive)
 			kitties.revive();
 
-		kitties.setGraphicSize(80);
-		kitties.setPosition(108, 338);
-
-		kitties.centerOrigin();
-		kitties.updateHitbox();
-		kitties.centerOffsets();
-
-		kitties.rolled = false;
-
-		roll = new FlxSprite(0, 0);
-		roll.loadGraphic(curRoll);
-		roll.centerOrigin();
-		roll.centerOffsets();
-
-		blanket = new FlxSprite(90, 398);
-		blanket.loadGraphic(curBlanket);
-
-		catcom = [roll, kitties];
-
-		add(blanket);
-		for (i in catcom)
-		{
-			add(i);
-			FlxTween.tween(i, {y: i.y + 20}, 0.8, {ease: FlxEase.bounceOut});
-		}
-	}
-
-	function rollLogic(elapsed:Float)
-	{
-		counter -= elapsed;
-		roll.setPosition(kitties.x - 44, kitties.y - 38);
-
-		if (!(kitties.angularVelocity == 0))
-			if (counter <= 0)
-			{
-				if (kitties.angularVelocity < 0)
-				{
-					roll.angularVelocity = kitties.angularVelocity;
-					roll.angularDrag = 1400;
-					counter = 0.08;
-
-					roll.height--;
-					roll.width--;
-				}
-				else
-				{
-					roll.angularVelocity = kitties.angularVelocity;
-					roll.angularDrag = 1400;
-					counter = 0.08;
-					roll.height++;
-					roll.width++;
-				}
-				roll.setGraphicSize(Std.int(roll.width), Std.int(roll.height));
-			}
+		add(kitties);
+		FlxTween.tween(kitties.cat, {y: kitties.cat.y + 20}, 0.8, {ease: FlxEase.bounceOut});
 	}
 
 	function doARoll()
 	{
-		if (kitties.overlaps(rollPoint) && flag)
+		if ((kitties.cat.overlaps(rollPoint) && flag) || (kitties.cat.overlaps(leftRollPoint) && leftFlag))
 		{
 			flag = false;
+			leftFlag = false;
+
 			points = points + 25;
 			kitties.rolled = true;
-			FlxTween.tween(kitties, {angle: kitties.angle + 20, y: 500}, 0.7, {
-				ease: FlxEase.bounceOut,
-				onComplete: function(_):Void
-				{
-					kitties.kill();
-					blanket.kill();
-					roll.kill();
-					spawnCats();
-					flag = true;
-				}
-			});
+			for (i in kitties.movObj)
+				FlxTween.tween(i, {angle: i.angle + 20, y: 500}, 0.7, {
+					ease: FlxEase.bounceOut,
+					onComplete: function(_):Void
+					{
+						kitties.resetCat();
+						spawnCats();
+						flag = true;
+						leftFlag = false;
+					}
+				});
 		}
+		else if (kitties.cat.overlaps(leftRollPoint) && leftFlag)
+			leftFlag = false;
 	}
 
 	override public function update(elapsed:Float)
@@ -179,7 +136,6 @@ class PlayState extends FlxState
 			openSubState(dialogue);
 		}
 		pText.text = '$points';
-		rollLogic(elapsed);
 		doARoll();
 		super.update(elapsed);
 	}

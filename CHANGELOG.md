@@ -1,3 +1,8 @@
+# 0.1.3
+
+- Mouse is now invisible in playstate.
+- 
+
 # 0.1.2
 
 - Added animations in cat spawn. Makes it feel more complete x)

@@ -51,26 +51,26 @@ class Cat extends FlxSprite
 
 	function movement()
 	{
-		var rRight = FlxG.keys.anyPressed([RIGHT, D]);
-		var rLeft = FlxG.keys.anyPressed([LEFT, A]);
+		var rRight = FlxG.keys.anyJustPressed([RIGHT, D]);
+		var rLeft = FlxG.keys.anyJustPressed([LEFT, A]);
 
 		if (rRight)
 		{
 			if (this.type == 'luna')
 			{
-				this.velocity.x = 150;
-				this.angularVelocity = 40;
+				this.velocity.x = this.velocity.x + 125;
+				this.angularVelocity = 140;
 			}
 			else
 			{
-				this.velocity.x = 130;
-				this.angularVelocity = 30;
+				this.velocity.x = this.velocity.x + 115;
+				this.angularVelocity = 120;
 			}
 		}
 		else if (rLeft)
 		{
-			this.velocity.x = -100;
-			this.angularVelocity = -30;
+			this.velocity.x = this.velocity.x - 115;
+			this.angularVelocity = -120;
 		}
 		else
 			this.angularVelocity = 0;
