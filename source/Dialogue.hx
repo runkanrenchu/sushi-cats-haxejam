@@ -14,7 +14,7 @@ class Dialogue extends FlxSubState
 	public function new(bgColor:FlxColor = FlxColor.TRANSPARENT, dialogueText:String)
 	{
 		super(bgColor);
-		text = Assets.getText("cool text.txt").split("/");
+		text = Assets.getText("source/cool text.txt").split("/");
 		textCool = [];
 		for (i in text)
 		{

@@ -23,7 +23,7 @@ class Preloader extends FlxBasePreloader
 	}
 
 	override public function create()
-	{
+	{	
 		this._width = Lib.current.stage.stageWidth;
 		this._height = Lib.current.stage.stageHeight;
 

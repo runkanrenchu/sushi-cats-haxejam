@@ -31,6 +31,7 @@ class MenuState extends FlxState
 		super.create();
 		// buttonG = new FlxSliceSprite('assets/images/ui/button.png', FlxRect.get(16, 16, 128 - 32, 128 - 32), 48, 128);
 		bd = new FlxBackdrop('assets/images/playstate/bdrop.png', 1, 1);
+		bd.useScaleHack = false;
 		bd.velocity.set(40, 40);
 		FlxG.camera.bgColor = FlxColor.fromString("#d2cbf2");
 		titleText = new FlxText(198, 90, 0, "Sushi Cats!", 48, true);

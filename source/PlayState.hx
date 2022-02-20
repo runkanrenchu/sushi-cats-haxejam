@@ -84,7 +84,6 @@ class PlayState extends FlxState
 		{
 			case 0:
 				curKit = 'lilly';
-
 			case 1:
 				curKit = 'logo';
 			case 2:
@@ -117,7 +116,9 @@ class PlayState extends FlxState
 					ease: FlxEase.bounceOut,
 					onComplete: function(_):Void
 					{
-						kitties.resetCat();
+						for (i in kitties.movObj)
+							i.kill();
+
 						spawnCats();
 						flag = true;
 						leftFlag = false;
@@ -130,13 +131,15 @@ class PlayState extends FlxState
 
 	override public function update(elapsed:Float)
 	{
+		#if FLX_DEBUG
 		if (FlxG.keys.anyJustPressed([ENTER]))
 		{
 			var dialogue = new Dialogue(FlxColor.BLACK, "hey :)");
 			openSubState(dialogue);
+		#end
+			pText.text = '$points';
+			doARoll();
+			super.update(elapsed);
 		}
-		pText.text = '$points';
-		doARoll();
-		super.update(elapsed);
 	}
 }

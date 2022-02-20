@@ -1,7 +1,9 @@
 # 0.1.3
 
-- Mouse is now invisible in playstate.
+- Added a cool preloader (just for practise!). I might change it later.
+- No, I won't change it to "Mewgrounds".
 - 
+- Mouse is now invisible in playstate.
 
 # 0.1.2
 

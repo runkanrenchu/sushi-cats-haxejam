@@ -57,79 +57,70 @@ class CatImp extends FlxTypedGroup<FlxSprite>
 
 		cat = new FlxSprite(0, 0);
 		cat.loadGraphic("assets/images/playstate/kit_she.png", true);
-		resetCat();
+		blanket = new FlxSprite(90, 398);
+		blanket.loadGraphic('assets/images/playstate/${type}blank.png');
+		roll = new FlxSprite(0, 0);
+		roll.loadGraphic('assets/images/playstate/${type}roll.png');
 
 		this.rolled = false;
 
-		roll = new FlxSprite(0, 0);
-		roll.loadGraphic('assets/images/playstate/${type}roll.png');
-		roll.centerOrigin();
-		roll.centerOffsets();
+		cat.animation.add('catgud', idleFr, 1, false);
+		cat.animation.add('cat rolled', finFr, 1, false);
+		cat.antialiasing = false;
 
-		blanket = new FlxSprite(90, 398);
-		blanket.loadGraphic('assets/images/playstate/${type}blank.png');
+		resetCat();
 
 		this.add(blanket);
 		this.add(roll);
 		this.add(cat);
 
-		cat.animation.add('catgud', idleFr, 1, false);
-		cat.animation.add('cat rolled', finFr, 1, false);
-		cat.antialiasing = false;
 		movObj = [cat, roll];
 	}
 
 	public function resetCat()
 	{
-		/*
-			for (i in movObj)
-			{
-				i.kill();
-				i.revive();
-			}
-			cat.setGraphicSize(80);
-			cat.setPosition(108, 338);
+		cat.setGraphicSize(80);
+		cat.setPosition(108, 338);
+		cat.centerOrigin();
+		cat.updateHitbox();
+		cat.centerOffsets();
 
-			cat.centerOrigin();
-			cat.updateHitbox();
-			cat.centerOffsets();
-		 */
+		roll.centerOrigin();
+		roll.centerOffsets();
+		roll.setPosition(cat.x - 44, cat.y - 38);
+
+		rolled = false;
 	}
 
 	function movement()
 	{
+		var rRight = FlxG.keys.anyPressed([RIGHT, D]);
+		var rLeft = FlxG.keys.anyPressed([LEFT, A]);
+
+		FlxG.log.add(rRight);
+		FlxG.log.add(rLeft);
 		for (i in movObj)
 		{
-			var rRight = FlxG.keys.anyJustPressed([RIGHT, D]);
-			var rLeft = FlxG.keys.anyJustPressed([LEFT, A]);
-
 			if (rRight)
 			{
 				if (this.type == 'luna')
 				{
-					i.velocity.x = i.velocity.x + 150;
-					i.x = i.x + 20;
+					cat.velocity.x = i.velocity.x + 125;
 					i.angularVelocity = 140;
 				}
 				else
 				{
-					i.velocity.x = i.velocity.x + 125;
-					i.x = i.x + 15;
+					i.velocity.x = i.velocity.x + 115;
 					i.angularVelocity = 120;
 				}
 			}
 			else if (rLeft)
 			{
-				i.velocity.x = i.velocity.x - 125;
-				i.x = i.x - 15;
-
+				i.velocity.x = i.velocity.x - 115;
 				i.angularVelocity = -120;
 			}
 			else
-			{
 				i.angularVelocity = 0;
-				i.velocity.x = 0;
-			}
 
 			if (!rolled)
 				cat.animation.play('catgud');
