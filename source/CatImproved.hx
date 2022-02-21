@@ -97,8 +97,6 @@ class CatImp extends FlxTypedGroup<FlxSprite>
 		var rRight = FlxG.keys.anyPressed([RIGHT, D]);
 		var rLeft = FlxG.keys.anyPressed([LEFT, A]);
 
-		FlxG.log.add(rRight);
-		FlxG.log.add(rLeft);
 		for (i in movObj)
 		{
 			if (rRight)

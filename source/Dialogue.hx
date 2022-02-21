@@ -25,5 +25,6 @@ class Dialogue extends FlxSubState
 
 		dialogue = new FlxText(100, 100, 0, text[1]);
 		add(dialogue);
+		// boo
 	}
 }
