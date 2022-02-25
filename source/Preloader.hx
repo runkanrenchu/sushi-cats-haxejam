@@ -19,11 +19,11 @@ class Preloader extends FlxBasePreloader
 
 	public function new(minDisplayTime:Float = 0)
 	{
-		super(3);
+		super(0);
 	}
 
 	override public function create()
-	{	
+	{
 		this._width = Lib.current.stage.stageWidth;
 		this._height = Lib.current.stage.stageHeight;
 

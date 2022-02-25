@@ -108,17 +108,17 @@ class CatImp extends FlxTypedGroup<FlxSprite>
 				}
 				else
 				{
-					i.velocity.x = i.velocity.x + 115;
+					cat.velocity.x = i.velocity.x + 115;
 					i.angularVelocity = 120;
 				}
 			}
 			else if (rLeft)
 			{
-				i.velocity.x = i.velocity.x - 115;
+				cat.velocity.x = i.velocity.x - 115;
 				i.angularVelocity = -120;
 			}
 			else
-				i.angularVelocity = 0;
+				i.angularVelocity = i.velocity.x = 0;
 
 			if (!rolled)
 				cat.animation.play('catgud');
@@ -126,6 +126,7 @@ class CatImp extends FlxTypedGroup<FlxSprite>
 			{
 				cat.animation.play('cat rolled');
 				i.velocity.x = 0;
+				i.angularVelocity = 0;
 			}
 		}
 	}

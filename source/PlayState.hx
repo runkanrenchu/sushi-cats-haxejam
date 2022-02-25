@@ -46,7 +46,9 @@ class PlayState extends FlxState
 
 		rollPoint = new FlxSprite(480, 380);
 		rollPoint.makeGraphic(16, 16, FlxColor.TRANSPARENT);
-		leftRollPoint = new FlxSprite(25, 400);
+		leftRollPoint = new FlxSprite(25, 380);
+		FlxG.watch.add(leftRollPoint, "x");
+		FlxG.watch.add(leftRollPoint, "y");
 		leftRollPoint.makeGraphic(16, 16, FlxColor.TRANSPARENT);
 		FlxG.camera.color = FlxColor.BLACK;
 		FlxG.camera.fade(FlxColor.TRANSPARENT, 1, true);
@@ -55,7 +57,7 @@ class PlayState extends FlxState
 
 		add(bg);
 		add(rollPoint);
-
+		add(leftRollPoint);
 		add(pText);
 		#if (FLX_DEBUG)
 		{
@@ -131,15 +133,8 @@ class PlayState extends FlxState
 
 	override public function update(elapsed:Float)
 	{
-		#if FLX_DEBUG
-		if (FlxG.keys.anyJustPressed([ENTER]))
-		{
-			var dialogue = new Dialogue(FlxColor.BLACK, "hey :)");
-			openSubState(dialogue);
-		#end
-			pText.text = '$points';
-			doARoll();
-			super.update(elapsed);
-		}
+		pText.text = '$points';
+		doARoll();
+		super.update(elapsed);
 	}
 }
