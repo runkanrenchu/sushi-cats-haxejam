@@ -1,13 +1,12 @@
 ## NOTE:
 
-### This game is in active development. Some features (like pause, etc) haven't been added yet. Yes, it isn't playable, but I promise it will be. Be patient!
-
+### This repository is archived and the project is abandoned. It only exists for preservation purposes. Sorry!
 
 # Sushi Cats
 
 Hey there! Welcome to Sushi Cats! This game is all about **rollin'**. 
 
-You are now in Mrs. Sea's house. She's such a cat lady! You have to take care of *alllllll* of her cats. Difficult task, isn't it?
+You are now in Mrs. Ocean's house. She's such a cat lady! You have to take care of *alllllll* of her cats. Difficult task, isn't it?
 
 However, in her own words, her cats "love to snuggle up in all sorts of blankets, and don't care where or when, they'll fall asleep". 
 Your goal now is to roll up these cats in fluffy blankets, right before Mrs. Ocean arrives!
@@ -29,6 +28,4 @@ something complete next jam. Check out the amazing submissions by the most talen
 
 Requirements: Haxe 4, Lime haxelib, Flixel haxelib, OpenFL haxelib, Flixel-addons haxelib.
 
-Download the source code (either in a .zip file or fork this repository), place it in the desired directory, and run `lime test html5` in that folder containing the whole source code.
-
-*If you wanna skip that process, though, the game is also up on [Itch.io](https://renchuaintreal.itch.io/sushi-cats).*
+Platforms available: native and web.
